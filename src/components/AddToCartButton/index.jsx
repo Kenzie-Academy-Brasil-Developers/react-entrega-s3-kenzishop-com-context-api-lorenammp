@@ -12,8 +12,13 @@ function AddToCartBtn({ book }) {
   const { cart, addToCart } = useContext(CartContext);
 
   const handleClick = () => {
-    addToCart(book);
-    console.log(cart);
+    const verifyBook = cart.filter((cartBook) => cartBook.id === book.id);
+    if (verifyBook.length !== 0) {
+      notifyError();
+    } else {
+      addToCart(book);
+      notifySuccess();
+    }
   };
   return <AddButton onClick={handleClick}>Adicionar ao carrinho</AddButton>;
 }
